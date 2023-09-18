@@ -16,7 +16,11 @@ export class NavBarComponent {
   constructor(
     public auth: AuthService,
     @Inject(DOCUMENT) private doc: Document
-  ) {}
+  ) {
+    this.auth.user$.subscribe(user => {
+      console.log(user);
+    })
+  }
 
   loginWithRedirect() {
     this.auth.loginWithRedirect();

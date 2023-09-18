@@ -8,7 +8,15 @@ import config from '../../auth_config.json';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  ping$() {
+  pingProtected$() {
+    return this.http.get(`${config.apiUri}/api/protected`);
+  }
+
+  pingPrivate$() {
     return this.http.get(`${config.apiUri}/api/private`);
+  }
+
+  pingPublic$() {
+    return this.http.get(`${config.apiUri}/api/public`);
   }
 }

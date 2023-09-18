@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthClientConfig } from '@auth0/auth0-angular';
 import { ApiService } from 'src/app/api.service';
@@ -8,9 +9,12 @@ import { ApiService } from 'src/app/api.service';
   styleUrls: ['./external-api.component.css'],
 })
 export class ExternalApiComponent {
-  responseJson: string;
+  publicResponseJson: string;
+  privateResponseJson: string;
+  protectedResponseJson: string;
   audience: string | undefined;
   hasApiError = false;
+  errorMessage: string | undefined;
 
   constructor(
     private api: ApiService,
@@ -19,13 +23,39 @@ export class ExternalApiComponent {
     this.audience = this.configFactory.get()?.authorizationParams.audience;
   }
 
-  pingApi() {
-    this.api.ping$().subscribe({
+  pingProtectedApiEndpoint() {
+    this.api.pingProtected$().subscribe({
       next: (res) => {
         this.hasApiError = false;
-        this.responseJson = JSON.stringify(res, null, 2).trim();
+        this.protectedResponseJson = JSON.stringify(res, null, 2).trim();
       },
-      error: () => this.hasApiError = true,
+      error: (error: HttpErrorResponse) => {
+        this.errorMessage = `${error.status}`
+        this.hasApiError = true},
+    });
+  }
+
+  pingPrivateApiEndpoint() {
+    this.api.pingPrivate$().subscribe({
+      next: (res) => {
+        this.hasApiError = false;
+        this.privateResponseJson = JSON.stringify(res, null, 2).trim();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.errorMessage = `${error.status}`
+        this.hasApiError = true},
+    });
+  }
+
+  pingPublicApiEndpoint() {
+    this.api.pingPublic$().subscribe({
+      next: (res) => {
+        this.hasApiError = false;
+        this.publicResponseJson = JSON.stringify(res, null, 2).trim();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.errorMessage = `${error.status}`
+        this.hasApiError = true},
     });
   }
 }

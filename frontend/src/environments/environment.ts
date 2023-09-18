@@ -30,8 +30,8 @@ export const environment = {
   httpInterceptor: {
     allowedList: [
       {
-        // Match any request that starts 'https://dev-8myc5qwlpx43fwh5.us.auth0.com/api/v2/' (note the asterisk)
-        uri: 'http://localhost:8080/api/*',
+        // Match any request that starts 'http://localhost:8080/api/*' (note the asterisk)
+        uri: apiUri+'/api/*',
         tokenOptions: {
           authorizationParams: {
             // The attached token should target this audience

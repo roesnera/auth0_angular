@@ -19,7 +19,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
 import { MessageComponent } from './components/message/message.component';
-import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,7 @@ import { CommonModule } from '@angular/common';
     LoadingComponent,
     ExternalApiComponent,
     ErrorComponent,
-    MessageComponent
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

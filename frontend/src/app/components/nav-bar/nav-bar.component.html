@@ -70,7 +70,7 @@
             >
               <!-- Profile image should be set to the profile picture from the id token -->
               <img
-                [src]="user.picture"
+                src="../../assets/WIN_20230131_16_17_33_Pro.jpg"
                 alt="Profile picture"
                 class="nav-user-profile rounded-circle"
                 style="width: 75px;"
@@ -79,7 +79,7 @@
             <div class="dropdown-menu dropdown-menu-left" ngbDropdownMenu>
               <!-- Show the user's full name from the id token here -->
               <div class="dropdown-header">
-                {{ user.name }}
+                Adam Roesner
               </div>
               <a routerLink="/profile" class="dropdown-item dropdown-profile">
                 <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
