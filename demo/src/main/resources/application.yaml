@@ -1,0 +1,8 @@
+auth0:
+  audience: http://localhost:9000/demo
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-8myc5qwlpx43fwh5.us.auth0.com/
