@@ -1,48 +1,46 @@
 <div class="next-steps my-5">
-    <h2 class="my-5 text-center">What does Auth0 support?</h2>
+    <h2 class="my-5 text-center">What does this app do?</h2>
 
     <div class="row">
       <div class="col-md-5 mb-4">
         <h6 class="mb-3">
-          <a href="https://auth0.com/docs/connections">
-            <fa-icon [icon]="faLink"></fa-icon> Configure other identity providers
-          </a>
+            This app uses Auth0 to authenticate/authorize users
         </h6>
         <p>
-          Auth0 supports social providers as Facebook, Twitter, Instagram and
-          100+, Enterprise providers as Microsoft Office 365, Google Apps, Azure,
-          and more. You can also use any OAuth2 Authorization Server.
+          Auth0 is an authorization server solution that has the ability to connect with many different common authentication providers. It will play the role of our federated authentication server.
         </p>
       </div>
 
       <div class="col-md"></div>
 
       <div class="col-md-5 mb-4">
-        <h6 class="mb-3">
-          <a href="https://auth0.com/docs/multifactor-authentication">
-            <fa-icon [icon]="faLink"></fa-icon> Enable Multifactor Authentication
-          </a>
-        </h6>
-        <p>
-          Add an extra layer of security by enabling Multi-factor Authentication,
-          requiring your users to provide more than one piece of identifying
-          information. Push notifications, authenticator apps, SMS, and DUO
-          Security are supported.
-        </p>
+        <h6 class="mb-3">Anyone can access public endpoints on our server</h6>
+        <!-- Public endpoint -->
+        <button
+          class="btn btn-primary mb-3"
+          (click)="pingPublicApiEndpoint()"
+        >
+          Ping Public API Endpoint
+        </button>
+      
+            <h6 class="">Result:</h6>
+        <div id="publicBlock" class="" *ngIf="publicResponseJson">
+          <div class="" [ngClass]="{ show: !!publicResponseJson }">
+            
+              <p class="pt-2">{{publicResponseJson}}</p>
+            
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-5 mb-4">
         <h6 class="mb-3">
-          <a href="https://auth0.com/docs/anomaly-detection">
-            <fa-icon [icon]="faLink"></fa-icon> Anomaly Detection
-          </a>
+            When a user is authenticated, they can access more api endpoints
         </h6>
         <p>
-          Auth0 can detect anomalies and stop malicious attempts to access your
-          application. Anomaly detection can alert you and your users of
-          suspicious activity, as well as block further login attempts.
+          Once a user is signed in, they gain access to new pages and when those pages request resources from our api, their credentials are checked. Our resource server will validate the credentials with Auth0, as is standard with access code flow.
         </p>
       </div>
 
@@ -50,14 +48,10 @@
 
       <div class="col-md-5 mb-4">
         <h6 class="mb-3">
-          <a href="https://auth0.com/docs/rules">
-            <fa-icon [icon]="faLink"></fa-icon> Learn About Rules
-          </a>
+            Auth0 provides permissions (AKA scopes and roles) using rules
         </h6>
         <p>
-          Rules are JavaScript functions that execute when a user authenticates to
-          your application. They run once the authentication process is complete,
-          and you can use them to customize and extend Auth0's capabilities.
+          Not all users are equal in their access to protected data. Using JavaScript, we can include scope in Auth0 provided tokens for our resource server to decode, providing further protection for sensitive data.
         </p>
       </div>
     </div>

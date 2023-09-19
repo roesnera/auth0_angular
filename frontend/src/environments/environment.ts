@@ -31,7 +31,7 @@ export const environment = {
     allowedList: [
       {
         // Match any request that starts 'http://localhost:8080/api/*' (note the asterisk)
-        uri: apiUri+'/api/*',
+        uri: apiUri+'/api/pr*',
         tokenOptions: {
           authorizationParams: {
             // The attached token should target this audience

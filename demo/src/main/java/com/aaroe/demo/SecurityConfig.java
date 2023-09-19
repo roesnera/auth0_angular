@@ -6,12 +6,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +36,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/public").permitAll()
                         .requestMatchers("/api/private").authenticated()
-                        .requestMatchers("/api/protected").hasAuthority("SCOPE_read:demo"))
+                        .requestMatchers("/api/protected").hasAuthority("read:demo"))
                 .oauth2ResourceServer(j -> j.jwt(Customizer.withDefaults()));
         corsCustomizer.corsCustomizer(http);
         return http.build();
@@ -49,5 +54,16 @@ public class SecurityConfig {
         jwtDecoder.setJwtValidator(withAudience);
 
         return jwtDecoder;
+    }
+
+    @Bean
+    JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
+        converter.setAuthoritiesClaimName("permissions");
+        converter.setAuthorityPrefix("");
+
+        JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
+        jwtConverter.setJwtGrantedAuthoritiesConverter(converter);
+        return jwtConverter;
     }
 }
