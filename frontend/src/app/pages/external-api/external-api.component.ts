@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthClientConfig } from '@auth0/auth0-angular';
 import { ApiService } from 'src/app/api.service';
+import { MessageResponse } from 'src/app/models/message.model';
 
 @Component({
   selector: 'app-external-api',
@@ -25,7 +26,7 @@ export class ExternalApiComponent {
 
   pingProtectedApiEndpoint() {
     this.api.pingProtected$().subscribe({
-      next: (res) => {
+      next: (res: MessageResponse) => {
         this.hasApiError = false;
         this.protectedResponseJson = JSON.stringify(res, null, 2).trim();
       },
@@ -37,7 +38,7 @@ export class ExternalApiComponent {
 
   pingPrivateApiEndpoint() {
     this.api.pingPrivate$().subscribe({
-      next: (res) => {
+      next: (res: MessageResponse) => {
         this.hasApiError = false;
         this.privateResponseJson = JSON.stringify(res, null, 2).trim();
       },
@@ -49,7 +50,7 @@ export class ExternalApiComponent {
 
   pingPublicApiEndpoint() {
     this.api.pingPublic$().subscribe({
-      next: (res) => {
+      next: (res: MessageResponse) => {
         this.hasApiError = false;
         this.publicResponseJson = JSON.stringify(res, null, 2).trim();
       },
